@@ -12,7 +12,7 @@
         <nav>
             <a href="?route=logout">Se déconnecter</a>
         </nav>
-        <form action="?route=upload" method="post" enctype="multipart/form-data">
+        <form action="?upload" method="post" enctype="multipart/form-data">
             <h2>Uploader des fichiers</h2>
             <div id="file-input-container">
                 <label for="files">Choisir un fichier :</label>
