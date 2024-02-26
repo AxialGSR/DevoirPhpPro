@@ -1,9 +1,8 @@
 <?php
-session_start();
 // Page inaccessible si la personne est connecté
 $file = file_get_contents('template/register.tpl');
 echo $file;
-require_once('../inc/db.php')
+require_once('../inc/db.php');
 if(isset($_POST['submit']))
 {   //vérification du remplissage des champs
     if( !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['confirm-password'])){
@@ -12,11 +11,12 @@ if(isset($_POST['submit']))
             // si ok récupération des variables
             $email = $dbh->quote($_POST['email']);
             $password = $dbh->quote($_POST['password']);
-            $Hpassword = password_hash($password,PASSWORD_ARGON2I)
+            $Hpassword = password_hash($password,PASSWORD_ARGON2I);
 
             // contrôle si email exite
-            $sql = $dbh->prepare('SELECT * FROM utilisateurs WHERE $email = :email LIMIT 1');
-    
+            $sql = $dbh->prepare("SELECT * FROM utilisateurs WHERE email = :email LIMIT 1");
+                $sql->bindValue(':email',$email,PDO::PARAM_STR);
+
                 $sql->execute();
                 if($sql->rowCount()==0){
                     // si 0 mail identique  récréation d'un nouvelle ID et création d'une session
